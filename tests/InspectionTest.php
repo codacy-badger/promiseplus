@@ -54,7 +54,7 @@ class InspectionTest extends TestCase
             }
         });
 
-        $res = Promise::inspect($co);
+        $res = $p1->inspect($co);
         $this->assertEquals('f', $res['reason']);
     }
 
@@ -72,7 +72,7 @@ class InspectionTest extends TestCase
         });
         $a->resolve('a');
         $b->reject('b');
-        $reason = Promise::inspect($promise)['reason'];
+        $reason = $a->inspect($promise)['reason'];
         $this->assertInstanceOf(\OutOfBoundsException::class, $reason);
         $this->assertInstanceOf(RejectionException::class, $reason->getPrevious());
     }
