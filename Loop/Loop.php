@@ -86,7 +86,7 @@ class Loop extends Scheduler implements LoopInterface
 	/**
 	 * Retrieves current Loop object.
 	 */
-	public function getInstance(): Loop
+	public static function getInstance(): Loop
 	{		
 		if (!self::$loop) {
 			self::$loop = new self();
@@ -98,7 +98,7 @@ class Loop extends Scheduler implements LoopInterface
 	/**
 	 * Reset current Loop object.
 	 */
-	public function clearInstance()
+	public static function clearInstance()
 	{	
 		if (self::$loop) {
 			self::$loop->stop();	

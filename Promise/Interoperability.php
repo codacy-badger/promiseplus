@@ -9,7 +9,7 @@ use Async\Loop\LoopInterface;
 
 trait Interoperability
 {	
-	public function isLoopAvailable($instance = null): bool
+	public static function isLoopAvailable($instance = null): bool
 	{
 		$isInstantiable = false;
 		if ($instance instanceof \GuzzleHttp\Promise\TaskQueue)
@@ -26,12 +26,12 @@ trait Interoperability
 		return $isInstantiable;
 	}
 		
-    public function clearLoop()
+    public static function clearLoop()
     {		
 		self::$loop = null;
     }
 	
-    public function getLoop($create = false, $autoRun = false)
+    public static function getLoop($create = false, $autoRun = false)
     {		
 		if (!self::$loop && $create) {
 			self::$loop = Loop::getInstance($autoRun);
@@ -40,7 +40,7 @@ trait Interoperability
         return self::$loop;
 	}
 	
-	public function getImplementation(string $method = null, 
+	public static function getImplementation(string $method = null, 
 		callable $function = null, 
 		int $timer = null)
 	{
@@ -76,7 +76,7 @@ trait Interoperability
 		return $othersLoop;
 	}
 	
-	public function implement(callable $function, PromiseInterface $promise = null)
+	public static function implement(callable $function, PromiseInterface $promise = null)
 	{		
         if (self::$loop) {
 			$othersLoop = Promise::getImplementation('queue');
@@ -91,7 +91,7 @@ trait Interoperability
 		return $promise;
 	}
 	
-	public function implementSet(callable $function = null, $timer = null)
+	public static function implementSet(callable $function = null, $timer = null)
 	{	
 		$othersLoop = Promise::getImplementation('settimer', $function, $timer);
 		if ($othersLoop)
@@ -102,7 +102,7 @@ trait Interoperability
 		return $timerResult;
 	}
 	
-	public function implementClear($timer = null)
+	public static function implementClear($timer = null)
 	{	
 		$othersLoop = Promise::getImplementation('cleartimer');
 		if ($othersLoop)

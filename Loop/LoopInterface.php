@@ -19,7 +19,7 @@ interface LoopInterface
 	/**
 	 * Retrieves current event Loop object.
 	 */
-	public function getInstance();
+	public static function getInstance();
 		
     /**
      * Executes a function after x seconds.
