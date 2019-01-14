@@ -5,7 +5,7 @@ namespace Async\Tests;
 use Async\Loop\Loop;
 use PHPUnit\Framework\TestCase;
 
-class LoopTest extends TestCase 
+class LoopSignalerTest extends TestCase 
 {
 	protected function setUp()
     {
