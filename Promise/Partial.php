@@ -12,7 +12,7 @@ trait Partial
     /**
      * @return new PromiseInterface
      */
-    public function deferred() : Promise
+    public static function deferred() : Promise
     {
         return new Promise();
     }
@@ -26,7 +26,7 @@ trait Partial
 	 * @param mixed $value promise or value.
 	 * @return PromiseInterface
 	 */
-	public function resolver($value = null)
+	public static function resolver($value = null)
 	{
 		if ($value instanceof PromiseInterface || $value instanceof Promise) {
 			if (method_exists($value, 'then') && !method_exists($value, 'done')) {
@@ -55,7 +55,7 @@ trait Partial
 	 *
 	 * @return PromiseInterface
 	 */
-	public function rejecter($reason = null)
+	public static function rejecter($reason = null)
 	{
 		if ($reason instanceof PromiseInterface) {
 			return $reason;
@@ -71,7 +71,7 @@ trait Partial
 	 *
 	 * @return \Exception|\Throwable
 	 */
-	public function rejection($reason)
+	public static function rejection($reason)
 	{				        
 		return $reason instanceof \Exception || $reason instanceof \Throwable
 			? $reason
@@ -86,7 +86,7 @@ trait Partial
      * @param int $delay
      * @return PromiseInterface
      */
-    public function delayer($value, $delay) {
+    public static function delayer($value, $delay) {
         return Promise::resolver($value)->delay($delay);
     }
 
@@ -98,7 +98,7 @@ trait Partial
      * @param int $timeout
      * @return PromiseInterface
      */
-	public function timeouter($value, $timeout) {
+	public static function timeouter($value, $timeout) {
         return Promise::resolver($value)->timeout($timeout);
     }
 
@@ -113,12 +113,12 @@ trait Partial
 	 *
 	 * @return PromiseInterface
 	 */
-	public function coroutine(callable $generatorFunction)
+	public static function coroutine(callable $generatorFunction)
 	{
 		return new Coroutine($generatorFunction);
 	}
 		
-	public function fatalError($error)
+	public static function fatalError($error)
 	{
 		try {
 			trigger_error($error, E_USER_ERROR);
@@ -131,7 +131,7 @@ trait Partial
 		}
 	}
 	
-	public function tryCatch($function, $value)
+	public static function tryCatch($function, $value)
 	{
 		$output = [];
 		try {

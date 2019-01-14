@@ -30,14 +30,14 @@ trait Collections
 	 * @param array $promises Promises.
 	 * @return PromiseInterface
 	 */
-	public function every( ...$promisesOrValues)
+	public static function every( ...$promisesOrValues)
 	{
 		return Promise::map($promisesOrValues, function ($val) {
 			return $val;
 		});
 	}
 	
-	public function all(PromiseInterface ...$promises): Promise
+	public static function all(PromiseInterface ...$promises): Promise
 	{
 		return new Promise(function ($success, $fail) use ($promises) {
 			if (empty($promises)) {
@@ -89,7 +89,7 @@ trait Collections
 	 * @param array $promises Promises.
 	 * @return PromiseInterface
 	 */
-	public function first( ...$promisesOrValues)
+	public static function first( ...$promisesOrValues)
 	{
 		if (!$promisesOrValues) {
 			return new Promise(function () {});
@@ -103,7 +103,7 @@ trait Collections
 		});
 	}
 
-	public function race(PromiseInterface ...$promises)
+	public static function race(PromiseInterface ...$promises)
 	{
 		return new Promise(function ($success, $fail) use ($promises) {
 			$alreadyDone = false;
@@ -138,7 +138,7 @@ trait Collections
 	 *
 	 * @return PromiseInterface
 	 */		
-	public function any( ...$promises)
+	public static function any( ...$promises)
 	{
 		return Promise::some($promises, 1)
 			->then(function ($val) {
@@ -163,7 +163,7 @@ trait Collections
 	 *
 	 * @return PromiseInterface
 	 */
-	public function some(array $promisesOrValues, $howMany)
+	public static function some(array $promisesOrValues, $howMany)
 	{	
 		if ($howMany < 1) {
 			return Promise::resolver([]);
@@ -228,7 +228,7 @@ trait Collections
      * @return PromiseInterface
      * @Throws Error|Exception|string|null
      */
-    public function map(array $promisesOrValues, callable $mapFunc = null)
+    public static function map(array $promisesOrValues, callable $mapFunc = null)
     {
 		if (!$mapFunc) {
 			throw new \InvalidArgumentException('`Promise::map` needs a mapper function');
@@ -272,7 +272,7 @@ trait Collections
      * @resolves mixed
      * @rejects Error|Exception|string|null
      */
-    public function reduce(array $promisesOrValues, callable $reduceFunc, $initialValue = null)
+    public static function reduce(array $promisesOrValues, callable $reduceFunc, $initialValue = null)
 	{
 		return new Promise(function ($resolve, $reject) use ($promisesOrValues, $reduceFunc, $initialValue) {
 			$total = count($promisesOrValues);
@@ -309,7 +309,7 @@ trait Collections
 	 *
 	 * @return PromiseInterface
 	 */
-	public function few($amount, PromiseInterface ...$promises){
+	public static function few($amount, PromiseInterface ...$promises){
 		if(count($promises) < $amount){
 			throw new \InvalidArgumentException("Not enough promises to fulfill count");
 		}
@@ -364,7 +364,7 @@ trait Collections
 	 *
 	 * @return PromiseInterface
 	 */
-	public function each(
+	public static function each(
 		$iterable,
 		callable $onFulfilled = null,
 		callable $onRejected = null
@@ -382,7 +382,7 @@ trait Collections
 	 *
 	 * @return \Iterator
 	 */
-	public function iter_for($value)
+	public static function iter_for($value)
 	{
 		if ($value instanceof \Iterator) {
 			return $value;
