@@ -15,6 +15,7 @@ class PromiseTest extends TestCase
 	
 	protected function setUp()
     {
+        $this->markTestSkipped('Pause these tests for now.');
 		Loop::clearInstance();
 		Promise::clearLoop();				
         $this->loop = Promise::getLoop(true);

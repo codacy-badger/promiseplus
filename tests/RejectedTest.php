@@ -14,6 +14,7 @@ class RejectedTest extends TestCase
 {		
 	protected function setUp()
     {
+        $this->markTestSkipped('Pause these tests for now.');
 		Promise::clearLoop();
     }
 	
