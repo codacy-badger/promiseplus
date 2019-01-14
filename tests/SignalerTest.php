@@ -9,6 +9,7 @@ class SignalerTest extends TestCase
 {
 	protected function setUp()
     {
+        $this->markTestSkipped('');
         if (!function_exists('posix_kill') || !function_exists('posix_getpid')) {
             $this->markTestSkipped('Signal test skipped because functions "posix_kill" and "posix_getpid" are missing.');
         }
